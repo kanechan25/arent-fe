@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { CounterStoreProvider } from '@/provider/counterProvider'
 import { QueryProvider } from '@/provider/queryProvider'
+import { AuthProvider } from '@/provider/authProvider'
 import { routers } from '@/routes/routes'
 import Layout from '@/components/Layout/Layout'
 import './assets/css/App.css'
@@ -8,7 +8,7 @@ import './assets/css/App.css'
 function App() {
   return (
     <QueryProvider>
-      <CounterStoreProvider>
+      <AuthProvider>
         <BrowserRouter>
           <Layout>
             <Routes>
@@ -21,7 +21,7 @@ function App() {
             </Routes>
           </Layout>
         </BrowserRouter>
-      </CounterStoreProvider>
+      </AuthProvider>
     </QueryProvider>
   )
 }
