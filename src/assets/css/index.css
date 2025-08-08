@@ -2,47 +2,50 @@
 
 /* Tailwind v4 theme */
 @theme {
-  --color-light: #ffffff; /* light */
+  --color-light: #ffffff; /* background, text on dark background */
   --color-background: #ebebeb; /* backup */
 
   --color-primary-300: #ffcc21;
-  --color-primary-400: #ff963c;
-  --color-primary-500: #ea6c00;
-  --gradient-primary-300-400: linear-gradient(to right, var(--color-primary-300), var(--color-primary-400));
+  --color-primary-400: #ff963c; /* main, icons, logos */
+  --color-primary-500: #ea6c00; /* notification badges */
+  --gradient-primary-300-400: linear-gradient(
+    to right,
+    var(--color-primary-300),
+    var(--color-primary-400)
+  ); /* buttons */
   --color-primary-300-400: var(--gradient-primary-300-400);
 
-  --color-secondary-300: #8fe9d0;
+  --color-secondary-300: #8fe9d0; /* graphs */
 
-  --color-dark-600: #2e2e2e;
-  --color-dark-500: #414141; /* also main text */
-  --color-gray-400: #777777;
+  --color-dark-600: #2e2e2e; /* darkest bg */
+  --color-dark-500: #414141; /* main text, header & footer bg */
+  --color-gray-400: #777777; /* lines */
 }
 
 @utility bg-primary-300-400 {
   background-image: var(--gradient-primary-300-400);
 }
+@font-face {
+  font-family: 'HiraginoW3';
+  src: url('/fonts/Hiragino_Kaku_Gothic_ProN_W3.otf') format('otf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HiraginoW6';
+  src: url('/fonts/Hiragino_Kaku_Gothic_ProN_W6.otf') format('otf');
+  font-display: swap;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'HiraginoW3', 'HiraginoW6', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #ffffff;
-
+  background-color: var(--color-light);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -51,41 +54,4 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
