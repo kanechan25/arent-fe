@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useFetchColumnArticles } from '@/hooks/apis'
 import { Category, type ColumnArticle } from '@/services/mockData/column'
-import { ColumnCard } from '@/components/ui/columnCard'
-import arrowUp from '@/assets/images/icons/icon_up.svg'
+import { ColumnCard } from '@/components/ui/ColumnCard'
+import { Button } from '@/components/ui/common/Button'
+import { GoToTop } from '@/components/ui/common/GoToTop'
 
-const CATEGORY_BOXES: Array<{ key: Category; en: string; jp: string }> = [
+const categories: Array<{ key: Category; en: string; jp: string }> = [
   { key: Category.Column, en: 'RECOMMENDED COLUMN', jp: 'オススメ' },
   { key: Category.Diet, en: 'RECOMMENDED DIET', jp: 'ダイエット' },
   { key: Category.Beauty, en: 'RECOMMENDED BEAUTY', jp: '美容' },
@@ -39,15 +40,11 @@ export default function ColumnPage() {
     }
   }
 
-  const handleScrollTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   return (
     <div className='max-w-[960px] mx-auto px-4 py-10 space-y-10'>
       {/* Category */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
-        {CATEGORY_BOXES.map((c) => (
+        {categories.map((c) => (
           <button
             key={c.key}
             onClick={() => handleToggleCategory(c.key)}
@@ -77,23 +74,16 @@ export default function ColumnPage() {
 
       {/* Load more */}
       <div className='flex justify-center'>
-        <button
+        <Button
           onClick={handleLoadMore}
           disabled={isFetching}
-          className='min-w-64 px-8 py-3 rounded text-light bg-primary-300-400 hover:opacity-90 disabled:opacity-60'
+          className='min-w-64 px-8 py-3 text-light bg-primary-300-400'
         >
           {isFetching ? '読み込み中...' : 'コラムをもっと見る'}
-        </button>
+        </Button>
       </div>
 
-      {/* Go to top*/}
-      <button
-        aria-label='go-to-top'
-        onClick={handleScrollTop}
-        className='fixed bottom-8 right-6 md:bottom-18 md:right-10 w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-gray-400 bg-light/80 backdrop-blur-sm shadow-md flex items-center justify-center hover:bg-light'
-      >
-        <img src={arrowUp} alt='arrow up' className='w-6 h-6' />
-      </button>
+      <GoToTop />
     </div>
   )
 }

@@ -5,8 +5,9 @@ export function ColumnCard({ article }: { article: ColumnArticle }) {
     <div className='space-y-2'>
       <div className='relative'>
         <img src={article.imageUrl} alt={article.title} className='w-full h-44 object-cover' />
-        <div className='absolute bottom-0 left-0 px-2 py-1 text-light text-xs bg-primary-300'>
-          {article.date} {article.time}
+        <div className='absolute bottom-0 left-0 px-2 py-1 text-light text-xs bg-primary-300 flex gap-2'>
+          <span>{article.date}</span>
+          <span>{article.time}</span>
         </div>
       </div>
       <div className='text-dark-500 text-sm text-left leading-relaxed'>{article.title}</div>
