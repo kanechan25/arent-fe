@@ -60,7 +60,7 @@ export const useUserStore = create<UserState>((set, _) => ({
 
       // Navigate to column page after logout
       if (navigate) {
-        navigate(Path.Home)
+        navigate(Path.ColumnPage)
       }
     } catch (error) {
       console.error('Logout error:', error)

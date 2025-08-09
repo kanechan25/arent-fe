@@ -3,7 +3,7 @@ import logo from '@/assets/images/logo.svg'
 import memo from '@/assets/images/icons/icon_memo.svg'
 import challenge from '@/assets/images/icons/icon_challenge.svg'
 import info from '@/assets/images/icons/icon_info.svg'
-import MobileMenu from '@/components/Layout/MobileMenu'
+import MobileMenu from '@/components/layout/MobileMenu'
 import login from '@/assets/images/icons/icon_login.svg'
 import { useNavigate } from 'react-router-dom'
 import { Path } from '@/routes/routes'
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
     if (isLoggedIn) {
       navigate(Path.MyPage)
     } else {
-      navigate(Path.Home)
+      navigate(Path.ColumnPage)
     }
   }
   return (

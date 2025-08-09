@@ -1,0 +1,1 @@
+export { useFetchColumnArticles } from './useFetchColumn'

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryProvider } from '@/provider/queryProvider'
 import { AuthProvider } from '@/provider/authProvider'
 import { routers } from '@/routes/routes'
-import Layout from '@/components/Layout/Layout'
+import Layout from '@/components/layout/Layout'
 import './assets/css/App.css'
 
 function App() {

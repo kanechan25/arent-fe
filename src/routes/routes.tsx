@@ -1,9 +1,9 @@
-import Home from '@/pages/Home'
+import ColumnPage from '@/pages/ColumnPage'
 import MyPage from '@/pages/MyPage'
 import MyRecord from '@/pages/MyRecord'
 
 export enum Path {
-  Home = '/',
+  ColumnPage = '/',
   MyPage = '/my-page',
   MyRecord = '/my-record',
 }
@@ -17,10 +17,10 @@ export type Routes = {
 
 export const routers: Routes[] = [
   {
-    href: Path.Home,
-    id: 'home',
-    name: 'Home',
-    element: <Home />,
+    href: Path.ColumnPage,
+    id: 'column-page',
+    name: 'Column Page',
+    element: <ColumnPage />,
   },
   {
     href: Path.MyPage,

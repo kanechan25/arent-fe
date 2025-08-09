@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import menu from '@/assets/images/icons/icon_menu.svg'
 import close from '@/assets/images/icons/icon_close.svg'
 import { useMobileMenuStore } from '@/stores/mobileMenu'
@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import { Path } from '@/routes/routes'
 import { useUserStore } from '@/stores/users'
 interface MobileMenuItems {
-  id: number
   label: string
-  onClick: () => void
+  action: () => void
+  icon?: string
 }
 
 const MobileMenu: React.FC = () => {
@@ -17,47 +17,23 @@ const MobileMenu: React.FC = () => {
   const { handleLogout } = useUserStore()
   const navigate = useNavigate()
 
-  const handleMenuItemClick = async (id: number) => {
-    try {
-      switch (id) {
-        case 1:
-          navigate(Path.MyRecord)
-          break
-        case 2:
-          console.log('体重グラフ')
-          break
-        case 3:
-          console.log('目標')
-          break
-        case 4:
-          console.log('選択中のコース')
-          break
-        case 5:
-          navigate(Path.Home)
-          break
-        case 6:
-          console.log('設定')
-          break
-        case 7:
-          await handleLogout(navigate)
-          break
-      }
-    } catch (error) {
-      console.error('Menu action error:', error)
-    } finally {
-      closeMenu()
-    }
-  }
-
-  const menuItems: MobileMenuItems[] = [
-    { id: 1, label: '自分の記録', onClick: () => handleMenuItemClick(1) },
-    { id: 2, label: '体重グラフ', onClick: () => handleMenuItemClick(2) },
-    { id: 3, label: '目標', onClick: () => handleMenuItemClick(3) },
-    { id: 4, label: '選択中のコース', onClick: () => handleMenuItemClick(4) },
-    { id: 5, label: 'コラム一覧', onClick: () => handleMenuItemClick(5) },
-    { id: 6, label: '設定', onClick: () => handleMenuItemClick(6) },
-    { id: 7, label: 'ログアウト', onClick: () => handleMenuItemClick(7) },
-  ]
+  const menuItems: MobileMenuItems[] = useMemo(
+    () => [
+      { label: '自分の記録', action: () => navigate(Path.MyRecord) },
+      { label: '体重グラフ', action: () => console.log('体重グラフ') },
+      { label: '目標', action: () => console.log('目標') },
+      { label: '選択中のコース', action: () => console.log('選択中のコース') },
+      { label: 'コラム一覧', action: () => navigate(Path.ColumnPage) },
+      { label: '設定', action: () => console.log('設定') },
+      {
+        label: 'ログアウト',
+        action: async () => await handleLogout(navigate),
+        icon: logout,
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
 
   return (
     <div className='absolute right-0 top-0 z-10'>
@@ -70,13 +46,16 @@ const MobileMenu: React.FC = () => {
         {isOpen && (
           <div className='bg-gray-400 flex-1 mt-1'>
             {menuItems.map((item, index) => (
-              <div key={index} className='py-5.5 px-8 w-[280px] border-b  border-gray-600 last:border-b-0'>
+              <div key={index} className='py-5 px-8 w-[280px] border-b  border-gray-600 last:border-b-0'>
                 <button
-                  onClick={() => item.onClick()}
+                  onClick={() => {
+                    item.action()
+                    closeMenu()
+                  }}
                   className=' text-xl font-medium flex items-center justify-between text-white hover:text-orange-400 transition-colors w-full text-left'
                 >
                   {item.label}
-                  {item.id === 7 && <img src={logout} alt='logout' className='w-6 h-6' />}
+                  {item.icon && <img src={item.icon} alt={item.label} className='w-6 h-6' />}
                 </button>
               </div>
             ))}
