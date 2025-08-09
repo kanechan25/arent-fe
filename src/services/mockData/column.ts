@@ -28,11 +28,10 @@ export interface ColumnArticle {
 const imageUrls = [column1, column2, column3, column4, column5, column6, column7, column8]
 const articleTitle = '魚を食べて頭もカラダも元気に！知っておきたい魚を食べるメリ...'
 const articleTags = ['#魚料理', '#和食', '#DHA']
+const categoriesCycle = [Category.Column, Category.Diet, Category.Beauty, Category.Health]
 
-export function generateColumnArticles(): ColumnArticle[] {
+export function generateColumn(): ColumnArticle[] {
   const currentYear = new Date().getFullYear()
-  const categoriesCycle = [Category.Column, Category.Diet, Category.Beauty, Category.Health]
-
   const items: ColumnArticle[] = Array.from({ length: 8 }, (_, index) => {
     const id = (index + 1).toString()
     const category = categoriesCycle[index % categoriesCycle.length]
