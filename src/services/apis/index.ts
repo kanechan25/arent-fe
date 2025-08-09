@@ -1,1 +1,2 @@
-export { fetchColumnArticles } from './column'
+export { fetchColumnArticles } from './column.service'
+export { fetchBodyRecord } from './bodyRecord.service'
