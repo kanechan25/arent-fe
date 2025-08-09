@@ -33,3 +33,13 @@ export function getDateAndPrev(dateStr: string): [string, string] {
 
   return [format(target), format(prev)]
 }
+
+export function subtractPastDays(dateStr: string, days: number): string {
+  const [y, m, d] = dateStr.split(/[^\d]/).map(Number) // 'YYYY/MM/DD'
+  const dt = new Date(y, (m ?? 1) - 1, d ?? 1)
+  dt.setDate(dt.getDate() - days)
+  const yyyy = dt.getFullYear()
+  const mm = String(dt.getMonth() + 1).padStart(2, '0')
+  const dd = String(dt.getDate()).padStart(2, '0')
+  return `${yyyy}/${mm}/${dd}`
+}

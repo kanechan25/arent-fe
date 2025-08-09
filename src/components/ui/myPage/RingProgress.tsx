@@ -1,11 +1,11 @@
 type ProgressProps = {
   date: string // 'MM/DD'
   percentage: number
+  size?: number
 }
 
-export default function RingProgress({ date, percentage }: ProgressProps) {
-  const size = 220
-  const stroke = 8
+export default function RingProgress({ date, percentage, size = 220 }: ProgressProps) {
+  const stroke = 6
   const radius = size / 2 - stroke
   const c = 2 * Math.PI * radius
   const pct = Math.max(0, Math.min(100, percentage))

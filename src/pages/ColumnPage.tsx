@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useFetchColumnArticles } from '@/hooks/apis'
 import { Category, type ColumnArticle } from '@/services/mockData/column'
-import { ColumnCard } from '@/components/ui/ColumnCard'
+import { ColumnCard } from '@/components/ui/columnPage/ColumnCard'
 import { Button } from '@/components/ui/common/Button'
 import { GoToTop } from '@/components/ui/common/GoToTop'
 

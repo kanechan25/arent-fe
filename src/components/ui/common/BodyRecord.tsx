@@ -5,7 +5,7 @@ import { useFetchBodyRecord } from '@/hooks/apis/useFetchBodyRecord'
 import { typeToLabel, type TimeType } from '@/services/mockData/bodyRecord'
 
 type BodyRecordProps = {
-  date: string
+  date: string // 'YYYY/MM/DD'
   className?: string
   variant?: 'full' | 'compact'
 }
@@ -32,7 +32,7 @@ export default function BodyRecord({ className = '', date, variant = 'full' }: B
         </header>
       )}
 
-      <div className='w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[360px]'>
+      <div className='w-full h-full'>
         <ResponsiveContainer width='100%' height='100%'>
           <LineChart data={data} margin={{ top: 8, right: 8, left: 12, bottom: 0 }}>
             <CartesianGrid vertical={false} horizontal={false} />
