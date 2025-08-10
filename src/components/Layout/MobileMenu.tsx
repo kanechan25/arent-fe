@@ -6,6 +6,7 @@ import logout from '@/assets/images/icons/icon_logout.svg'
 import { useNavigate } from 'react-router-dom'
 import { Path } from '@/routes/routes'
 import { useUserStore } from '@/stores/users'
+
 interface MobileMenuItems {
   label: string
   action: () => void

@@ -1,51 +1,31 @@
-import { useEffect, useMemo, useState, Suspense } from 'react'
+import React from 'react'
 import { Button, GoToTop, BodyRecord } from '@/components/ui/_shared'
 import RingProgress from '@/components/ui/myPage/RingProgress'
-import { useFetchMealHistory } from '@/hooks/apis'
-import { MealType, MealHistory } from '@/types/myPage'
+import { MealType, MyPageProps } from '@/types/myPage'
 import MealButton from '@/components/ui/myPage/MealButton'
 import { MealCard } from '@/components/ui/myPage/MealCard'
-import { subtractPastDays } from '@/utils'
 import bgMeal from '@/assets/images/photo/d01.jpg'
 import knifeIcon from '@/assets/images/icons/icon_knife.svg'
 import cupIcon from '@/assets/images/icons/icon_cup.svg'
 
-const mealButtons: Array<{ key: MealType; label: string; icon: string }> = [
-  { key: MealType.Morning, label: 'Morning', icon: knifeIcon },
-  { key: MealType.Lunch, label: 'Lunch', icon: knifeIcon },
-  { key: MealType.Dinner, label: 'Dinner', icon: knifeIcon },
-  { key: MealType.Snack, label: 'Snack', icon: cupIcon },
-]
-const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
+const MyPage: React.FC<MyPageProps> = ({
+  histories,
+  isLoading,
+  isError,
+  isFetching,
+  selected,
+  requestDate,
+  onToggle,
+  onLoadMore,
+}) => {
+  const mealButtons: Array<{ key: MealType; label: string; icon: string }> = [
+    { key: MealType.Morning, label: 'Morning', icon: knifeIcon },
+    { key: MealType.Lunch, label: 'Lunch', icon: knifeIcon },
+    { key: MealType.Dinner, label: 'Dinner', icon: knifeIcon },
+    { key: MealType.Snack, label: 'Snack', icon: cupIcon },
+  ]
 
-const MyPage = () => {
-  const [requestDate, setRequestDate] = useState<string>('2025/08/09')
-  const { data, isLoading, isError, isFetching } = useFetchMealHistory(requestDate)
-  const [histories, setHistories] = useState<MealHistory[]>([])
-  const [selected, setSelected] = useState<MealType | 'all'>('all')
-
-  useEffect(() => {
-    if (!data) return
-    setHistories((prev) => {
-      if (prev.length === 0) return data
-      const existingIds = new Set(prev.map((h) => h.id))
-      const newMeals = data.filter((h) => !existingIds.has(h.id))
-      return [...prev, ...newMeals]
-    })
-  }, [data])
-
-  const filtered = useMemo(() => {
-    if (selected === 'all') return histories
-    return histories.filter((h) => h.type === selected)
-  }, [histories, selected])
-
-  const handleToggle = (key: MealType) => {
-    setSelected((prev) => (prev === key ? 'all' : key))
-  }
-
-  const handleLoadMore = () => {
-    setRequestDate((prev) => subtractPastDays(prev, 2))
-  }
+  const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
 
   return (
     <div className='space-y-10 w-full'>
@@ -57,9 +37,7 @@ const MyPage = () => {
           </div>
         </div>
 
-        <Suspense fallback={<div className='h-80 bg-dark-600 animate-pulse' />}>
-          <BodyRecord date={requestDate} variant='compact' className='h-full' />
-        </Suspense>
+        <BodyRecord date={requestDate} variant='compact' className='h-full' />
       </div>
 
       <div className='flex flex-col max-w-[960px] mx-auto gap-8'>
@@ -71,7 +49,7 @@ const MyPage = () => {
                 selected={selected === f.key}
                 label={f.label}
                 icon={f.icon}
-                onClick={() => handleToggle(f.key)}
+                onClick={() => onToggle(f.key)}
               />
             ))}
           </div>
@@ -89,7 +67,7 @@ const MyPage = () => {
             </div>
           ) : (
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 lg:px-0'>
-              {filtered.map((item) => (
+              {histories.map((item) => (
                 <MealCard key={item.id} item={item} />
               ))}
             </div>
@@ -97,7 +75,7 @@ const MyPage = () => {
 
           <div className='flex justify-center'>
             <Button
-              onClick={handleLoadMore}
+              onClick={onLoadMore}
               disabled={isFetching}
               className='min-w-64 px-8 py-3 text-light bg-primary-300-400'
             >

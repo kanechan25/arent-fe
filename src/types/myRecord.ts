@@ -1,3 +1,14 @@
+export interface MyRecordProps {
+  transitionButtons: TransitionButton[]
+  diaryEntries: DiaryEntry[]
+  isFetching: boolean
+  bodyRecordRef: React.RefObject<HTMLElement | null>
+  myExerciseRef: React.RefObject<HTMLElement | null>
+  myDiaryRef: React.RefObject<HTMLElement | null>
+  onTransitionClick: (sectionRef: React.RefObject<HTMLElement | null>) => void
+  onLoadMore: () => Promise<void>
+}
+
 export type TimeType = 'year' | 'month' | 'week' | 'day'
 export const TypeToLabel: Record<TimeType, string> = {
   week: '週',
@@ -25,4 +36,12 @@ export interface ExerciseEntry {
   name: string
   calories: number
   duration: number
+}
+
+export interface TransitionButton {
+  label: string
+  content: string
+  icon: string
+  sectionRef?: React.RefObject<HTMLElement | null>
+  onClick?: () => void
 }

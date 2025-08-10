@@ -1,4 +1,4 @@
-import { TransitionButton } from '@/types/myPage'
+import { TransitionButton } from '@/types/myRecord'
 
 export default function TransitionBtn({ label, content, icon, onClick }: TransitionButton) {
   return (

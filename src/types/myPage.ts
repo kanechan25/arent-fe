@@ -1,3 +1,15 @@
+export interface MyPageProps {
+  histories: MealHistory[]
+  filteredHistories?: MealHistory[]
+  isLoading: boolean
+  isError: boolean
+  isFetching: boolean
+  selected: MealType | 'all'
+  requestDate: string
+  onToggle: (key: MealType) => void
+  onLoadMore: () => void
+}
+
 export enum MealType {
   Morning = 'morning',
   Lunch = 'lunch',
@@ -10,12 +22,4 @@ export interface MealHistory {
   type: MealType
   date: string // 'YYYY/MM/DD'
   imageUrl: string
-}
-
-export interface TransitionButton {
-  label: string
-  content: string
-  icon: string
-  sectionRef?: React.RefObject<HTMLElement | null>
-  onClick?: () => void
 }

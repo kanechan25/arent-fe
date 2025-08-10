@@ -1,6 +1,4 @@
-import ColumnPage from '@/pages/ColumnPage'
-import MyPage from '@/pages/MyPage'
-import MyRecord from '@/pages/MyRecord'
+import { MyPageContainer, ColumnPageContainer, MyRecordContainer } from '@/components/containers'
 
 export enum Path {
   ColumnPage = '/',
@@ -20,19 +18,19 @@ export const routers: Routes[] = [
     href: Path.ColumnPage,
     id: 'column-page',
     name: 'Column Page',
-    element: <ColumnPage />,
+    element: <ColumnPageContainer />,
   },
   {
     href: Path.MyPage,
     id: 'my-page',
     name: 'My Page',
-    element: <MyPage />,
+    element: <MyPageContainer />,
   },
   {
     href: Path.MyRecord,
     id: 'my-record',
     name: 'My Record',
-    element: <MyRecord />,
+    element: <MyRecordContainer />,
   },
 
   // Add other routes as needed

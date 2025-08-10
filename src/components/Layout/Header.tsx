@@ -8,7 +8,6 @@ import login from '@/assets/images/icons/icon_login.svg'
 import { useNavigate } from 'react-router-dom'
 import { Path } from '@/routes/routes'
 import { useUserStore } from '@/stores/users'
-import { preloadOnHover, preloadPageComponents } from '@/utils/preload'
 
 const Header: React.FC = () => {
   const { isLoggedIn, handleLogin, isLoading } = useUserStore()
@@ -31,7 +30,6 @@ const Header: React.FC = () => {
             <nav className='hidden md:flex items-center space-x-10 mr-24'>
               <button
                 onClick={() => navigate(Path.MyRecord)}
-                {...preloadOnHover(preloadPageComponents.myRecord)}
                 className='flex items-center space-x-2 hover:text-orange-400 transition-colors'
               >
                 <img src={memo} alt='memo' className='w-8 h-8' />

@@ -4,28 +4,12 @@ export const preloadComponent = (importFn: () => Promise<any>) => {
 }
 
 export const preloadPageComponents = {
-  columnPage: () => preloadComponent(() => import('@/pages/ColumnPage')),
-  myPage: () => preloadComponent(() => import('@/pages/MyPage')),
-  myRecord: () => preloadComponent(() => import('@/pages/MyRecord')),
+  columnPage: () => preloadComponent(() => import('@/components/containers/ColumnPageContainer')),
+  myPage: () => preloadComponent(() => import('@/components/containers/MyPageContainer')),
+  myRecord: () => preloadComponent(() => import('@/components/containers/MyRecordContainer')),
 }
 
 export const preloadLibraries = {
   recharts: () => preloadComponent(() => import('recharts')),
   reactWindow: () => preloadComponent(() => import('react-window')),
-}
-
-export const preloadOnHover = (preloadFn: () => void) => {
-  let timeoutId: NodeJS.Timeout | null = null
-
-  return {
-    onMouseEnter: () => {
-      timeoutId = setTimeout(preloadFn, 100)
-    },
-    onMouseLeave: () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-        timeoutId = null
-      }
-    },
-  }
 }
