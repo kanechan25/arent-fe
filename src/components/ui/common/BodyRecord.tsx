@@ -23,18 +23,18 @@ export default function BodyRecord({ className = '', date, variant = 'full' }: B
 
   return (
     <section className={sectionStyle}>
-      {variant === 'full' && (
-        <header className='flex items-end justify-between gap-4 mb-4 sm:mb-6'>
-          <div className='flex items-start gap-4 text-white'>
-            <h3 className='text-lg tracking-wide w-[80px] text-left'>BODY RECORD</h3>
-            <span className='text-3xl tracking-wide'>{date}</span>
-          </div>
-        </header>
-      )}
+      <div className={`w-full h-full ${variant === 'full' ? 'pb-24' : ''}`}>
+        {variant === 'full' && (
+          <header className='flex items-end justify-between gap-4'>
+            <div className='flex items-start gap-4 text-white'>
+              <h3 className='text-md tracking-wide w-[80px] text-left'>BODY RECORD</h3>
+              <span className='text-2xl tracking-wide'>{date}</span>
+            </div>
+          </header>
+        )}
 
-      <div className='w-full h-full'>
         <ResponsiveContainer width='100%' height='100%'>
-          <LineChart data={data} margin={{ top: 8, right: 8, left: 12, bottom: 0 }}>
+          <LineChart data={data} margin={{ top: 8, right: 8, left: 14, bottom: 0 }}>
             <CartesianGrid vertical={false} horizontal={false} />
             <XAxis
               dataKey='label'
@@ -78,22 +78,22 @@ export default function BodyRecord({ className = '', date, variant = 'full' }: B
             />
           </LineChart>
         </ResponsiveContainer>
-      </div>
 
-      {variant === 'full' && (
-        <div className='mt-6 flex items-center gap-3 sm:gap-4'>
-          {timeTypes.map((time) => (
-            <Button
-              key={time}
-              onClick={() => setType(time)}
-              className={time === type ? activeButtonStyle : normalButtonStyle}
-              ariaLabel={`show ${typeToLabel[time]} view`}
-            >
-              {typeToLabel[time]}
-            </Button>
-          ))}
-        </div>
-      )}
+        {variant === 'full' && (
+          <div className='mt-2 bg-dark-500 flex items-center gap-3 sm:gap-4'>
+            {timeTypes.map((time) => (
+              <Button
+                key={time}
+                onClick={() => setType(time)}
+                className={time === type ? activeButtonStyle : normalButtonStyle}
+                ariaLabel={`show ${typeToLabel[time]} view`}
+              >
+                {typeToLabel[time]}
+              </Button>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   )
 }
