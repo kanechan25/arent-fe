@@ -8,13 +8,10 @@ const diaryContent =
 export function generateDiary(): DiaryEntry[] {
   const currentYear = new Date().getFullYear()
   const items: DiaryEntry[] = Array.from({ length: 8 }, (_, index) => {
-    const id = (index + 1).toString()
-    const date = getRandomDateInYear(currentYear)
-    const time = getRandomTime()
     return {
-      id,
-      date,
-      time,
+      id: (index + 1).toString(),
+      date: getRandomDateInYear(currentYear),
+      time: getRandomTime(),
       title: diaryTitle,
       content: diaryContent,
     }

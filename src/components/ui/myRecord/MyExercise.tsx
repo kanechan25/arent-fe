@@ -1,7 +1,9 @@
-import { useMemo } from 'react'
-import { FixedSizeList as List } from 'react-window'
+import { useMemo, lazy, Suspense } from 'react'
 import { useFetchMyExercise } from '@/hooks/apis/useFetchMyExercise'
 import { ExerciseRow } from '@/components/ui/myRecord/ExerciseRow'
+
+const FixedSizeList = lazy(() => import('react-window').then((module) => ({ default: module.FixedSizeList })))
+const ListLoader = () => <div className='w-full h-[204px] bg-dark-500' />
 
 interface MyExerciseProps {
   date: string
@@ -23,11 +25,7 @@ export default function MyExercise({ date, className = '' }: MyExerciseProps) {
   const maxItems = Math.max(leftColExercises.length, rightColExercises.length)
 
   if (isLoading) {
-    return (
-      <section className={sectionStyle}>
-        <div className='text-center text-white'>読み込み中...</div>
-      </section>
-    )
+    return <section className={`h-[292px] ${sectionStyle}`} />
   }
 
   const renderVirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
@@ -64,15 +62,17 @@ export default function MyExercise({ date, className = '' }: MyExerciseProps) {
       </header>
 
       <div className='max-h-96 overflow-hidden'>
-        <List
-          className='my-exercise-list'
-          height={Math.min(CONTAINER_HEIGHT, maxItems * ITEM_HEIGHT)}
-          width='100%'
-          itemCount={maxItems}
-          itemSize={ITEM_HEIGHT}
-        >
-          {renderVirtualizedItem}
-        </List>
+        <Suspense fallback={<ListLoader />}>
+          <FixedSizeList
+            className='my-exercise-list'
+            height={Math.min(CONTAINER_HEIGHT, maxItems * ITEM_HEIGHT)}
+            width='100%'
+            itemCount={maxItems}
+            itemSize={ITEM_HEIGHT}
+          >
+            {renderVirtualizedItem}
+          </FixedSizeList>
+        </Suspense>
       </div>
     </section>
   )

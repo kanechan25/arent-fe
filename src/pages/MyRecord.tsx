@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, Suspense } from 'react'
 import { useFetchMyDiary } from '@/hooks/apis'
 import TransitionBtn from '@/components/ui/myRecord/TransitionBtn'
 import MyExercise from '@/components/ui/myRecord/MyExercise'
@@ -74,7 +74,9 @@ const MyRecord = () => {
       </section>
 
       <section ref={bodyRecordRef} className='max-w-[960px] mx-auto p-4 lg:p-0'>
-        <BodyRecord date='2025/08/09' variant='full' className='h-96' />
+        <Suspense fallback={<div className='h-96 bg-dark-500 animate-pulse' />}>
+          <BodyRecord date='2025/08/09' variant='full' className='h-96' />
+        </Suspense>
       </section>
 
       <section ref={myExerciseRef} className='max-w-[960px] mx-auto p-4 lg:p-0'>

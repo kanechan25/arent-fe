@@ -2,16 +2,16 @@ import { ColumnArticle } from '@/types/column'
 
 export function ColumnCard({ article }: { article: ColumnArticle }) {
   return (
-    <div className='space-y-2'>
+    <div className='space-y-1'>
       <div className='relative'>
-        <img src={article.imageUrl} alt={article.title} className='w-full h-44 object-cover' />
+        <img src={article.imageUrl} alt={article.title} className='w-full h-44 object-cover' loading='lazy' />
         <div className='absolute bottom-0 left-0 px-2 py-1 text-light text-xs bg-primary-300 flex gap-2'>
           <span>{article.date}</span>
           <span>{article.time}</span>
         </div>
       </div>
       <div className='text-dark-500 text-sm text-left leading-relaxed'>{article.title}</div>
-      <div className='text-primary-400 text-xs space-x-3 text-left'>
+      <div className='text-primary-400 text-xs space-x-1 text-left'>
         {article.tags.map((tag) => (
           <span key={tag}>{tag}</span>
         ))}

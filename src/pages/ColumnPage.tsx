@@ -10,6 +10,7 @@ const categories: Array<{ key: Category; en: string; jp: string }> = [
   { key: Category.Beauty, en: 'RECOMMENDED BEAUTY', jp: '美容' },
   { key: Category.Health, en: 'RECOMMENDED HEALTH', jp: '健康' },
 ]
+const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
 
 export default function ColumnPage() {
   const { data, isLoading, isError, refetch, isFetching } = useFetchColumnArticles()
@@ -40,7 +41,7 @@ export default function ColumnPage() {
   }
 
   return (
-    <div className='max-w-[960px] mx-auto px-4 py-10 space-y-10'>
+    <div className='max-w-[960px] mx-auto px-4 py-10 space-y-12'>
       {/* Category */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
         {categories.map((c) => (
@@ -48,12 +49,13 @@ export default function ColumnPage() {
             key={c.key}
             onClick={() => handleToggleCategory(c.key)}
             className={
-              'w-full bg-dark-500 text-light text-center py-8 px-4 transition-colors cursor-pointer ' +
+              'flex flex-col items-center justify-center w-full bg-dark-600 text-light text-center py-8 px-4 transition-colors cursor-pointer ' +
               (selected === c.key ? 'ring-2 ring-primary-400' : '')
             }
           >
-            <div className='text-primary-300 text-xs tracking-widest'>{c.en}</div>
-            <div className='mt-3 text-xl'>{c.jp}</div>
+            <div className='text-primary-300 text-xl tracking-widest'>{c.en}</div>
+            <div className='w-14 my-2 border-b-1 border-light' />
+            <div className='text-xl'>{c.jp}</div>
           </button>
         ))}
       </div>
@@ -62,9 +64,13 @@ export default function ColumnPage() {
       {isError ? (
         <div className='text-center text-red-500'>データの取得に失敗しました。</div>
       ) : isLoading && articles.length === 0 ? (
-        <div className='text-center text-gray-400'>読み込み中...</div>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+          {skeletonArray.map((index) => (
+            <div key={index} className='w-full h-62 bg-gray-300 animate-pulse blur-xs' />
+          ))}
+        </div>
       ) : (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
           {filteredArticles.map((article, index) => (
             <ColumnCard key={`${article.id}-${index}`} article={article} />
           ))}

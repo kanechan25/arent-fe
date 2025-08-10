@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, Suspense } from 'react'
 import { Button, GoToTop, BodyRecord } from '@/components/ui/_shared'
 import RingProgress from '@/components/ui/myPage/RingProgress'
 import { useFetchMealHistory } from '@/hooks/apis'
@@ -16,6 +16,7 @@ const mealButtons: Array<{ key: MealType; label: string; icon: string }> = [
   { key: MealType.Dinner, label: 'Dinner', icon: knifeIcon },
   { key: MealType.Snack, label: 'Snack', icon: cupIcon },
 ]
+const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
 
 const MyPage = () => {
   const [requestDate, setRequestDate] = useState<string>('2025/08/09')
@@ -56,7 +57,9 @@ const MyPage = () => {
           </div>
         </div>
 
-        <BodyRecord date={requestDate} variant='compact' className='h-full' />
+        <Suspense fallback={<div className='h-80 bg-dark-600 animate-pulse' />}>
+          <BodyRecord date={requestDate} variant='compact' className='h-full' />
+        </Suspense>
       </div>
 
       <div className='flex flex-col max-w-[960px] mx-auto gap-8'>
@@ -79,7 +82,11 @@ const MyPage = () => {
           {isError ? (
             <div className='text-center text-red-500'>データの取得に失敗しました。</div>
           ) : isLoading && histories.length === 0 ? (
-            <div className='text-center text-gray-400'>読み込み中...</div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 lg:px-0'>
+              {skeletonArray.map((index) => (
+                <div key={index} className='w-full h-44 bg-gray-300 animate-pulse blur-xs' />
+              ))}
+            </div>
           ) : (
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 lg:px-0'>
               {filtered.map((item) => (
