@@ -7,21 +7,8 @@ import m01 from '@/assets/images/photo/m01.jpg'
 import m02 from '@/assets/images/photo/m02.jpg'
 import m03 from '@/assets/images/photo/m03.jpg'
 import s01 from '@/assets/images/photo/s01.jpg'
+import { MealHistory, MealType } from '@/types/myPage'
 import { getDateAndPrev } from '@/utils'
-
-export enum MealType {
-  Morning = 'morning',
-  Lunch = 'lunch',
-  Dinner = 'dinner',
-  Snack = 'snack',
-}
-
-export interface MealHistory {
-  id: string
-  type: MealType
-  date: string // 'YYYY/MM/DD'
-  imageUrl: string
-}
 
 const imageUrls: Record<MealType, string[]> = {
   [MealType.Morning]: [m01, m02, m03],

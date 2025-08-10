@@ -1,16 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
-import BodyRecord from '@/components/ui/common/BodyRecord'
+import { Button, GoToTop, BodyRecord } from '@/components/ui/_shared'
 import RingProgress from '@/components/ui/myPage/RingProgress'
-import Button from '@/components/ui/common/Button'
-import { GoToTop } from '@/components/ui/common/GoToTop'
-import bgMeal from '@/assets/images/photo/d01.jpg'
-import knifeIcon from '@/assets/images/icons/icon_knife.svg'
-import cupIcon from '@/assets/images/icons/icon_cup.svg'
 import { useFetchMealHistory } from '@/hooks/apis'
-import { MealType, type MealHistory } from '@/services/mockData/mealHistory'
+import { MealType, MealHistory } from '@/types/myPage'
 import MealButton from '@/components/ui/myPage/MealButton'
 import { MealCard } from '@/components/ui/myPage/MealCard'
 import { subtractPastDays } from '@/utils'
+import bgMeal from '@/assets/images/photo/d01.jpg'
+import knifeIcon from '@/assets/images/icons/icon_knife.svg'
+import cupIcon from '@/assets/images/icons/icon_cup.svg'
 
 const mealButtons: Array<{ key: MealType; label: string; icon: string }> = [
   { key: MealType.Morning, label: 'Morning', icon: knifeIcon },
@@ -76,6 +74,7 @@ const MyPage = () => {
           </div>
         </div>
 
+        {/* Meal grid */}
         <div className='space-y-8'>
           {isError ? (
             <div className='text-center text-red-500'>データの取得に失敗しました。</div>

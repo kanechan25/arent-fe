@@ -47,8 +47,9 @@ const Header: React.FC = () => {
                 <span className='hover:text-orange-400'>お知らせ</span>
               </button>
             </nav>
-
-            <MobileMenu />
+            <div className='w-8 h-8'>
+              <MobileMenu />
+            </div>
           </div>
         ) : (
           <button

@@ -1,14 +1,26 @@
+import { useMemo } from 'react'
+import { FixedSizeList as List } from 'react-window'
 import { useFetchMyExercise } from '@/hooks/apis/useFetchMyExercise'
-import { ExerciseRow } from './ExerciseRow'
+import { ExerciseRow } from '@/components/ui/myRecord/ExerciseRow'
 
 interface MyExerciseProps {
   date: string
   className?: string
 }
 
+const ITEM_HEIGHT = 50
+const CONTAINER_HEIGHT = 204
+
 export default function MyExercise({ date, className = '' }: MyExerciseProps) {
   const { data: exercises = [], isLoading } = useFetchMyExercise(100)
-  const sectionStyle = `w-full h-68 bg-dark-500 px-4 py-3 text-light ${className}`
+  const sectionStyle = `w-full bg-dark-500 p-6 pt-4 text-light ${className}`
+  const leftColExercises = useMemo(() => {
+    return exercises.filter((_, index) => index % 2 === 0)
+  }, [exercises])
+  const rightColExercises = useMemo(() => {
+    return exercises.filter((_, index) => index % 2 === 1)
+  }, [exercises])
+  const maxItems = Math.max(leftColExercises.length, rightColExercises.length)
 
   if (isLoading) {
     return (
@@ -17,6 +29,31 @@ export default function MyExercise({ date, className = '' }: MyExerciseProps) {
       </section>
     )
   }
+
+  const renderVirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const leftExercise = leftColExercises[index]
+    const rightExercise = rightColExercises[index]
+
+    return (
+      <div style={style} className='flex gap-12'>
+        <div className='flex-1'>
+          {leftExercise && (
+            <ExerciseRow name={leftExercise.name} calories={leftExercise.calories} duration={leftExercise.duration} />
+          )}
+        </div>
+        <div className='flex-1'>
+          {rightExercise && (
+            <ExerciseRow
+              name={rightExercise.name}
+              calories={rightExercise.calories}
+              duration={rightExercise.duration}
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <section className={sectionStyle}>
       <header className='flex items-end justify-between gap-4'>
@@ -25,12 +62,17 @@ export default function MyExercise({ date, className = '' }: MyExerciseProps) {
           <span className='text-2xl tracking-wide'>{date}</span>
         </div>
       </header>
-      <div className=''>
-        <ul id='my-exercise-list' className='grid grid-cols-1 md:grid-cols-2 gap-x-12 max-h-49 overflow-y-auto pr-3'>
-          {exercises.map((ex, i) => (
-            <ExerciseRow key={i} name={ex.name} calories={ex.calories} duration={ex.duration} />
-          ))}
-        </ul>
+
+      <div className='max-h-96 overflow-hidden'>
+        <List
+          className='my-exercise-list'
+          height={Math.min(CONTAINER_HEIGHT, maxItems * ITEM_HEIGHT)}
+          width='100%'
+          itemCount={maxItems}
+          itemSize={ITEM_HEIGHT}
+        >
+          {renderVirtualizedItem}
+        </List>
       </div>
     </section>
   )

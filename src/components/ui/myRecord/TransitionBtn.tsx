@@ -1,11 +1,6 @@
-interface TransitionBtnProps {
-  label: string
-  content: string
-  icon: string
-  onClick: () => void
-}
+import { TransitionButton } from '@/types/myPage'
 
-export default function TransitionBtn({ label, content, icon, onClick }: TransitionBtnProps) {
+export default function TransitionBtn({ label, content, icon, onClick }: TransitionButton) {
   return (
     <button
       onClick={onClick}

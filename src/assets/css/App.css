@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 
-#my-exercise-list::-webkit-scrollbar-track {
+.my-exercise-list::-webkit-scrollbar-track {
   border-radius: 4px;
 }
 

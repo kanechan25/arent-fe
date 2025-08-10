@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useFetchColumnArticles } from '@/hooks/apis'
-import { Category, type ColumnArticle } from '@/services/mockData/column'
+import { Category, ColumnArticle } from '@/types/column'
 import { ColumnCard } from '@/components/ui/columnPage/ColumnCard'
-import { Button } from '@/components/ui/common/Button'
-import { GoToTop } from '@/components/ui/common/GoToTop'
+import { Button, GoToTop } from '@/components/ui/_shared'
 
 const categories: Array<{ key: Category; en: string; jp: string }> = [
   { key: Category.Column, en: 'RECOMMENDED COLUMN', jp: 'オススメ' },
@@ -59,7 +58,7 @@ export default function ColumnPage() {
         ))}
       </div>
 
-      {/* Articles grid */}
+      {/* Column grid */}
       {isError ? (
         <div className='text-center text-red-500'>データの取得に失敗しました。</div>
       ) : isLoading && articles.length === 0 ? (
@@ -72,7 +71,6 @@ export default function ColumnPage() {
         </div>
       )}
 
-      {/* Load more */}
       <div className='flex justify-center'>
         <Button
           onClick={handleLoadMore}

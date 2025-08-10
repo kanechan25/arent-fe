@@ -1,12 +1,5 @@
+import { DiaryEntry } from '@/types/myRecord'
 import { getRandomDateInYear, getRandomTime } from '@/utils'
-
-export interface DiaryEntry {
-  id: string
-  date: string // '2021.05.17'
-  time: string // '23:25'
-  title: string
-  content: string
-}
 
 const diaryTitle = '私の日記の記録が一部表示されます。'
 const diaryContent =

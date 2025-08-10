@@ -1,4 +1,4 @@
-import { MealHistory } from '@/services/mockData/mealHistory'
+import { MealHistory } from '@/types/myPage'
 
 export function MealCard({ item }: { item: MealHistory }) {
   const displayType = item.type.charAt(0).toUpperCase() + item.type.slice(1)

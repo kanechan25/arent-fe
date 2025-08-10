@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid, ReferenceLine } from 'recharts'
-import Button from '@/components/ui/common/Button'
+import Button from '@/components/ui/_shared/Button'
 import { useFetchBodyRecord } from '@/hooks/apis/useFetchBodyRecord'
-import { typeToLabel, type TimeType } from '@/services/mockData/bodyRecord'
+import { TypeToLabel, TimeType } from '@/types/myRecord'
 
 type BodyRecordProps = {
   date: string // 'YYYY/MM/DD'
   className?: string
   variant?: 'full' | 'compact'
 }
-const activeButtonStyle = 'bg-[#FFCC21] text-[#2E2E2E] font-bold rounded-[22px] px-6 h-8 shadow-inner'
-const normalButtonStyle = 'bg-white/10 text-white rounded-[22px] px-6 h-8'
+const activeButtonStyle = 'bg-primary-300 text-light font-bold rounded-[22px] px-6 h-7 shadow-inner'
+const normalButtonStyle = 'bg-light text-primary-300 rounded-[22px] px-6 h-7'
 const timeTypes = ['day', 'week', 'month', 'year'] as TimeType[]
 
 export default function BodyRecord({ className = '', date, variant = 'full' }: BodyRecordProps) {
   const [type, setType] = useState<TimeType>('year')
   const { data = [] } = useFetchBodyRecord(type)
 
-  const sectionStyle = [`w-full ${variant === 'full' ? 'bg-dark-500' : 'bg-dark-600'} p-4 text-light`, className]
+  const sectionStyle = [`w-full ${variant === 'full' ? 'bg-dark-500' : 'bg-dark-600'} py-4 px-6 text-light`, className]
     .filter(Boolean)
     .join(' ')
 
@@ -86,9 +86,9 @@ export default function BodyRecord({ className = '', date, variant = 'full' }: B
                 key={time}
                 onClick={() => setType(time)}
                 className={time === type ? activeButtonStyle : normalButtonStyle}
-                ariaLabel={`show ${typeToLabel[time]} view`}
+                ariaLabel={`show ${TypeToLabel[time]} view`}
               >
-                {typeToLabel[time]}
+                {TypeToLabel[time]}
               </Button>
             ))}
           </div>

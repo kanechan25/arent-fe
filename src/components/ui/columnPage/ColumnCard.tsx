@@ -1,4 +1,4 @@
-import { ColumnArticle } from '@/services/mockData/column'
+import { ColumnArticle } from '@/types/column'
 
 export function ColumnCard({ article }: { article: ColumnArticle }) {
   return (

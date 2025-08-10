@@ -1,28 +1,21 @@
 import { useRef, useEffect, useState } from 'react'
 import { useFetchMyDiary } from '@/hooks/apis'
+import TransitionBtn from '@/components/ui/myRecord/TransitionBtn'
+import MyExercise from '@/components/ui/myRecord/MyExercise'
+import DiaryCard from '@/components/ui/myRecord/DiaryCard'
+import { Button, GoToTop, BodyRecord } from '@/components/ui/_shared'
+import { DiaryEntry } from '@/types/myRecord'
+import { TransitionButton } from '@/types/myPage'
 import bodyRecordBtn from '@/assets/images/photo/MyRecommend-1.jpg'
 import myExerciseBtn from '@/assets/images/photo/MyRecommend-2.jpg'
 import myDiaryBtn from '@/assets/images/photo/MyRecommend-3.jpg'
-import TransitionBtn from '@/components/ui/myRecord/TransitionBtn'
-import BodyRecord from '@/components/ui/common/BodyRecord'
-import MyExercise from '@/components/ui/myRecord/MyExercise'
-import DiaryCard from '@/components/ui/myRecord/DiaryCard'
-import { Button } from '@/components/ui/common/Button'
-import GoToTop from '@/components/ui/common/GoToTop'
-
-interface TransitionButton {
-  label: string
-  content: string
-  icon: string
-  sectionRef: React.RefObject<HTMLElement | null>
-}
 
 const MyRecord = () => {
   const bodyRecordRef = useRef<HTMLElement>(null)
   const myExerciseRef = useRef<HTMLElement>(null)
   const myDiaryRef = useRef<HTMLElement>(null)
 
-  const [diaryEntries, setDiaryEntries] = useState<any[]>([])
+  const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>([])
   const { data: initialDiaryData = [], refetch, isFetching } = useFetchMyDiary()
 
   useEffect(() => {
@@ -66,15 +59,15 @@ const MyRecord = () => {
   return (
     <div className='space-y-10 w-full'>
       {/* Transition Buttons Section */}
-      <section className='p-4 mt-8 flex w-full items-center justify-center'>
-        <div className='grid grid-cols-1 md:grid-cols-3 w-full mx-auto place-items-center gap-4'>
+      <section className='p-4 lg:p-0 mt-8 flex w-full items-center justify-center'>
+        <div className='grid grid-cols-1 md:grid-cols-3 w-full max-w-[960px] mx-auto place-items-center gap-12'>
           {transitionButtons.map((button, index) => (
             <TransitionBtn
               key={index}
               label={button.label}
               content={button.content}
               icon={button.icon}
-              onClick={() => handleTransitionClick(button.sectionRef)}
+              onClick={() => button.sectionRef && handleTransitionClick(button.sectionRef)}
             />
           ))}
         </div>

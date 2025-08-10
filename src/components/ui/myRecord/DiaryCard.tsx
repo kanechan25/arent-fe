@@ -1,4 +1,4 @@
-import { DiaryEntry } from '@/services/mockData/myDiary'
+import { DiaryEntry } from '@/types/myRecord'
 
 interface DiaryCardProps {
   entry: DiaryEntry

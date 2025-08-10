@@ -1,8 +1,4 @@
-export interface ExerciseEntry {
-  name: string
-  calories: number
-  duration: number
-}
+import { ExerciseEntry } from '@/types/myRecord'
 
 const exercises: string[] = [
   '家事全般（立位・軽い）',
