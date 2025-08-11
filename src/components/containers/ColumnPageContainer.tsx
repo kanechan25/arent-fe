@@ -1,8 +1,8 @@
-import { Category } from '@/types/column'
+import { Category, CategoryArray } from '@/types/column'
 import ColumnPage from '@/pages/ColumnPage'
 import { useColumnPage } from '@/hooks/useColumnPage'
 
-const categories: Array<{ key: Category; en: string; jp: string }> = [
+const categories: CategoryArray = [
   { key: Category.Column, en: 'RECOMMENDED COLUMN', jp: 'オススメ' },
   { key: Category.Diet, en: 'RECOMMENDED DIET', jp: 'ダイエット' },
   { key: Category.Beauty, en: 'RECOMMENDED BEAUTY', jp: '美容' },

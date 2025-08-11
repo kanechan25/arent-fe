@@ -3,6 +3,8 @@ import { ColumnPageProps } from '@/types/column'
 import { ColumnCard } from '@/components/ui/columnPage/ColumnCard'
 import { Button, GoToTop } from '@/components/ui/_shared'
 
+const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
+
 const ColumnPage: React.FC<ColumnPageProps> = ({
   categories,
   articles,
@@ -13,8 +15,6 @@ const ColumnPage: React.FC<ColumnPageProps> = ({
   onToggleCategory,
   onLoadMore,
 }) => {
-  const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
-
   return (
     <div className='max-w-[960px] mx-auto px-4 py-10 space-y-12'>
       {/* Category */}

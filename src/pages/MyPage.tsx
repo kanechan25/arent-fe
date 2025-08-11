@@ -8,6 +8,8 @@ import bgMeal from '@/assets/images/photo/d01.jpg'
 import knifeIcon from '@/assets/images/icons/icon_knife.svg'
 import cupIcon from '@/assets/images/icons/icon_cup.svg'
 
+const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
+
 const MyPage: React.FC<MyPageProps> = ({
   histories,
   isLoading,
@@ -24,9 +26,6 @@ const MyPage: React.FC<MyPageProps> = ({
     { key: MealType.Dinner, label: 'Dinner', icon: knifeIcon },
     { key: MealType.Snack, label: 'Snack', icon: cupIcon },
   ]
-
-  const skeletonArray = Array.from({ length: 8 }, (_, index) => index)
-
   return (
     <div className='space-y-10 w-full'>
       <div className='grid grid-cols-1 lg:grid-cols-[42%_58%] items-stretch w-full h-160 lg:h-full'>
@@ -43,13 +42,13 @@ const MyPage: React.FC<MyPageProps> = ({
       <div className='flex flex-col max-w-[960px] mx-auto gap-8'>
         <div className='px-6'>
           <div className='grid grid-cols-2 sm:grid-cols-4 place-items-center gap-4'>
-            {mealButtons.map((f) => (
+            {mealButtons.map((m) => (
               <MealButton
-                key={f.key}
-                selected={selected === f.key}
-                label={f.label}
-                icon={f.icon}
-                onClick={() => onToggle(f.key)}
+                key={m.key}
+                selected={selected === m.key}
+                label={m.label}
+                icon={m.icon}
+                onClick={() => onToggle(m.key)}
               />
             ))}
           </div>
