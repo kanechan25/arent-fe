@@ -28,17 +28,7 @@ vi.mock('@/components/ui/_shared', () => ({
 }))
 
 vi.mock('@/components/ui/myRecord/TransitionBtn', () => ({
-  default: ({
-    label,
-    content,
-    icon,
-    onClick,
-  }: {
-    label: string
-    content: string
-    icon: string
-    onClick?: () => void
-  }) => (
+  default: ({ label, content, onClick }: { label: string; content: string; onClick?: () => void }) => (
     <button data-testid='transition-button' data-label={label} data-content={content} onClick={onClick}>
       <div>{label}</div>
       <div>{content}</div>
