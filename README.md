@@ -16,7 +16,7 @@
 
 ### **Authentication & Security**
 
-- **Firebase Authentication** with Google OAuth provider
+- **Firebase Authentication** with Google OAuth Login provider
 - **Secure User Sessions** with automatic token management
 - **Protected Route Logic** with conditional rendering
 - **User State Persistence** across browser sessions
